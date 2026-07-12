@@ -14,8 +14,9 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = Menu::with('children')
-            ->whereNull('parent_id')
+        $menus = Menu::with('parent')
+            ->orderByRaw('COALESCE(parent_id, id)')
+            ->orderBy('parent_id')
             ->orderBy('sort_order')
             ->get();
 

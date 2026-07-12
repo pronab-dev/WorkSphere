@@ -10,6 +10,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [remember, setRemember] = useState(false);
   const [alert, setAlert] = useState({
     type: "",
@@ -18,7 +19,8 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (loading) return;
+    setLoading(true);
     try {
       const { data } = await login({
         email,
@@ -48,6 +50,8 @@ export default function Login() {
           message: "Server down! Please try again later.",
         });
       }
+    } finally {
+      setLoading(false);
     }
   };
   return (

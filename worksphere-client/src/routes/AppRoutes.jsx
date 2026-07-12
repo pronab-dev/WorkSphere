@@ -8,7 +8,8 @@ import Dashboard from "../pages/admin/dashboard/Dashboard";
 import AdminLayout from "../layouts/AdminLayout";
 import ProtectedRoute from "./ProtectedRoute";
 import EmployeeList from "../pages/admin/employee/EmployeeList";
-
+import Menu from "../pages/admin/menu/Menu";
+import AddMenu from "../pages/admin/menu/AddMenu";
 export default function AppRoutes() {
   return (
     <BrowserRouter>
@@ -50,6 +51,22 @@ export default function AppRoutes() {
               element={
                 <Loader>
                   <EmployeeList />
+                </Loader>
+              }
+            />
+            <Route
+              path="/admin/menu-management"
+              element={
+                <Loader>
+                  <Menu />
+                </Loader>
+              }
+            />
+            <Route
+              path="/admin/menu-management/create"
+              element={
+                <Loader>
+                  <AddMenu />
                 </Loader>
               }
             />
