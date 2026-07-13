@@ -7,3 +7,7 @@ export const getSidebarMenus = () => {
 export const getMenus = () => {
   return api.get("/menus");
 };
+
+export const createMenu = (payload) => {
+  return api.post("/menus", payload);
+};

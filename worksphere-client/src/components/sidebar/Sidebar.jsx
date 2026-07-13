@@ -2,7 +2,6 @@ import { NavLink, useLocation } from "react-router-dom";
 import * as Icons from "lucide-react";
 import { ChevronLeft, ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
-import { getSidebarMenus } from "../../services/menuService";
 
 function NavItem({ item, collapsed }) {
   const { pathname } = useLocation();
@@ -138,21 +137,8 @@ function NavItem({ item, collapsed }) {
   );
 }
 
-export default function Sidebar() {
+export default function Sidebar({ menus }) {
   const [collapsed, setCollapsed] = useState(false);
-  const [menus, setMenus] = useState([]);
-  useEffect(() => {
-    const fetchMenus = async () => {
-      try {
-        const { data } = await getSidebarMenus();
-        setMenus(data.menus);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchMenus();
-  }, []);
   return (
     <aside
       className={`relative flex flex-col shrink-0 bg-slate-950 text-slate-300 transition-all duration-300 ${

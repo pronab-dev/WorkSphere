@@ -19,6 +19,36 @@ class RoleMenuSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'role_id'    => 1,
+                'menu_id'    => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'role_id'    => 1,
+                'menu_id'    => 3,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'role_id'    => 1,
+                'menu_id'    => 4,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'role_id'    => 1,
+                'menu_id'    => 5,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'role_id'    => 1,
+                'menu_id'    => 6,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

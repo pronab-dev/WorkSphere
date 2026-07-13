@@ -7,10 +7,9 @@ import {
   LogOut,
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { getUser, removeToken } from "../../utils/token";
 import { logout } from "../../services/authService";
-import { getSidebarMenus } from "../../services/menuService";
 
 // Flattens menu items (including children) into a route -> title lookup.
 function flattenMenus(menus) {
@@ -42,10 +41,7 @@ function resolveTitle(routeMap, pathname) {
 
 function usePageTitle(menus) {
   const { pathname } = useLocation();
-  const [routeMap, setRouteMap] = useState({});
-
-  setRouteMap(flattenMenus(menus));
-
+  const routeMap = useMemo(() => flattenMenus(menus), [menus]);
   return resolveTitle(routeMap, pathname);
 }
 

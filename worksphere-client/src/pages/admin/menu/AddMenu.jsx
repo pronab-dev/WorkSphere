@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { getMenus } from "../../../services/menuService";
-
+import { getMenus, createMenu } from "../../../services/menuService";
+import { useToast } from "../../../context/ToastContext";
 const ICON_HINT = "Lucide icon name, e.g. LayoutDashboard, Users, Settings";
-
 export default function AddMenu() {
   const navigate = useNavigate();
 
   const [parentOptions, setParentOptions] = useState([]);
   const [loadingParents, setLoadingParents] = useState(true);
   const [serverError, setServerError] = useState("");
+  const { showSuccess, showError } = useToast();
 
   const {
     register,
@@ -43,20 +43,22 @@ export default function AddMenu() {
   }, []);
 
   const onSubmit = async (values) => {
-    // setServerError("");
-    // try {
-    //   await createMenu({
-    //     ...values,
-    //     parent_id: values.parent_id || null,
-    //     sort_order: values.sort_order ? Number(values.sort_order) : 0,
-    //   });
-    //   navigate("/admin/menus");
-    // } catch (err) {
-    //   setServerError(
-    //     err.response?.data?.message ||
-    //       "Failed to create menu. Please try again.",
-    //   );
-    // }
+    setServerError("");
+    try {
+      await createMenu({
+        ...values,
+        parent_id: values.parent_id || null,
+        sort_order: values.sort_order ? Number(values.sort_order) : 0,
+      });
+      showSuccess("Menu created successfully.");
+      navigate("/admin/menu-management/");
+    } catch (err) {
+      setServerError(
+        err.response?.data?.message ||
+          "Failed to create menu. Please try again.",
+      );
+      showError("Failed to create menu. Please try again.");
+    }
   };
 
   const handleCancel = () => {
