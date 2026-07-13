@@ -40,27 +40,17 @@ function resolveTitle(routeMap, pathname) {
   return bestMatch ? routeMap[bestMatch] : "Dashboard";
 }
 
-function usePageTitle() {
+function usePageTitle(menus) {
   const { pathname } = useLocation();
   const [routeMap, setRouteMap] = useState({});
 
-  useEffect(() => {
-    const fetchMenus = async () => {
-      try {
-        const { data } = await getSidebarMenus();
-        setRouteMap(flattenMenus(data.menus));
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchMenus();
-  }, []);
+  setRouteMap(flattenMenus(menus));
 
   return resolveTitle(routeMap, pathname);
 }
 
-export default function Header() {
-  const title = usePageTitle();
+export default function Header({ menus }) {
+  const title = usePageTitle(menus);
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -71,7 +61,7 @@ export default function Header() {
   const handleLogout = async () => {
     try {
       const { data } = await logout();
-        console.log(data.message);
+      console.log(data.message);
     } catch (error) {
       console.error(error.response?.data || error.message);
     } finally {
